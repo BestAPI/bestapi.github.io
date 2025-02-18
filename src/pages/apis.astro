@@ -1,0 +1,18 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ApiCard from '../components/ApiCard.astro';
+import { apis } from '../data/apis';
+
+const title = "All APIs - BestAPI";
+const description = "Browse our complete collection of APIs from around the world.";
+---
+
+<Layout title={title} description={description}>
+  <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">All APIs</h1>
+  
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    {apis.map((api) => (
+      <ApiCard {...api} />
+    ))}
+  </div>
+</Layout>

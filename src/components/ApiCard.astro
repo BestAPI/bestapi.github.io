@@ -1,0 +1,37 @@
+---
+interface Props {
+  name: string;
+  description: string;
+  category: string;
+  url: string;
+  auth: boolean;
+  cors: boolean;
+  https: boolean;
+}
+
+const { name, description, category, url, auth, cors, https } = Astro.props;
+---
+<a href={url} target="_blank" rel="noopener noreferrer" 
+   class="block p-3 bg-white dark:bg-gray-800 rounded-md border border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600">
+  <div class="space-y-1.5">
+    <div class="flex justify-between items-start gap-2">
+      <h3 class="font-medium text-gray-900 dark:text-white">{name}</h3>
+      <span class="px-1.5 py-0.5 text-xs rounded bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-100">{category}</span>
+    </div>
+    <p class="text-gray-600 dark:text-gray-300 text-xs line-clamp-2">{description}</p>
+    <div class="flex flex-wrap gap-1">
+      <span class={`px-1.5 py-0.5 text-xs rounded ${
+        auth ? 'bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-100' 
+             : 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-100'
+      }`}>{auth ? 'Auth' : 'No Auth'}</span>
+      <span class={`px-1.5 py-0.5 text-xs rounded ${
+        cors ? 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-100' 
+             : 'bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-100'
+      }`}>{cors ? 'CORS' : 'No CORS'}</span>
+      <span class={`px-1.5 py-0.5 text-xs rounded ${
+        https ? 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-100' 
+              : 'bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-100'
+      }`}>{https ? 'HTTPS' : 'HTTP'}</span>
+    </div>
+  </div>
+</a>

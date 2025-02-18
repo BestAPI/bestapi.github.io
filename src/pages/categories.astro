@@ -1,0 +1,19 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { categories } from '../data/apis';
+
+const title = "API Categories";
+const description = "Browse APIs by category to find the perfect match for your needs.";
+---
+
+<Layout title={title} description={description}>
+  <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+    {categories.map((category) => (
+      <a href={`/category/${category.toLowerCase()}`} 
+         class="p-3 bg-white dark:bg-gray-800 rounded-md border border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600">
+        <h2 class="font-medium text-gray-900 dark:text-white text-sm mb-1">{category}</h2>
+        <p class="text-gray-600 dark:text-gray-300 text-xs">Browse {category} APIs</p>
+      </a>
+    ))}
+  </div>
+</Layout>
