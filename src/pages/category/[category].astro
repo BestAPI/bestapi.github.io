@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import ApiCard from '../../components/ApiCard.astro';
-import { apis, categories } from '../../data/apis';
+import { apis, categories } from '../../data/apis.js';
 
 export function getStaticPaths() {
   return categories.map(category => ({

@@ -1,14 +1,3 @@
-export interface API {
-  id: string;
-  name: string;
-  description: string;
-  category: string;
-  url: string;
-  auth: boolean;
-  cors: boolean;
-  https: boolean;
-}
-
 export const categories = [
   'Authentication',
   'Development Tools',
@@ -25,9 +14,9 @@ export const categories = [
   'Sports',
   'News',
   'Government',
-] as const;
+];
 
-export const apis: API[] = [
+export const apis = [
   {
     id: '1',
     name: 'Example API',
