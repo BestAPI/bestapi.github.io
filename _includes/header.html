@@ -15,10 +15,6 @@
         
         <ul class="nav-menu">
           <li><a href="{{ '/' | relative_url }}" {% if page.url == '/' %}class="active"{% endif %}>Home</a></li>
-          <li><a href="{{ '/apis/' | relative_url }}" {% if page.url contains '/apis/' %}class="active"{% endif %}>APIs</a></li>
-          <li><a href="{{ '/categories/' | relative_url }}" {% if page.url contains '/categories/' %}class="active"{% endif %}>Categories</a></li>
-          <li><a href="{{ '/tags/' | relative_url }}" {% if page.url contains '/tags/' %}class="active"{% endif %}>Tags</a></li>
-          <li><a href="{{ '/archive/' | relative_url }}" {% if page.url contains '/archive/' %}class="active"{% endif %}>Archive</a></li>
           <li><a href="{{ '/about/' | relative_url }}" {% if page.url contains '/about/' %}class="active"{% endif %}>About</a></li>
           <li><a href="{{ '/contribute/' | relative_url }}" {% if page.url contains '/contribute/' %}class="active"{% endif %}>Contribute</a></li>
         </ul>
