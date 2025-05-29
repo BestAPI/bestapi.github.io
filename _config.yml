@@ -63,6 +63,9 @@ plugins:
   - jekyll-paginate
   - jekyll-sitemap
 
+# Date format
+date_format: "%B %-d, %Y"
+
 # Exclude from processing
 exclude:
   - Gemfile
