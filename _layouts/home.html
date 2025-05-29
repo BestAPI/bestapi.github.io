@@ -92,7 +92,7 @@ layout: default
       <p>No posts found. Make sure your posts are in the `_posts` directory with the correct naming format.</p>
     {% endif %}
   
-    {% if site.paginate %}
+    {% if site.paginate and paginator.total_pages > 1 %}
       <div class="pagination">
         {% if paginator.previous_page %}
           <a href="{{ paginator.previous_page_path | relative_url }}" class="pagination-item">Previous</a>
