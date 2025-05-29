@@ -1,10 +1,8 @@
 ---
-title: How to Contribute
+title: How You Can Contribute to BestAPI
 layout: page
 permalink: /contribute/
 ---
-
-# Contributing to BestAPI
 
 BestAPI is a community-driven project, and we welcome contributions from everyone. This page explains how you can contribute to the project.
 
