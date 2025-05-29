@@ -3,7 +3,7 @@ layout: post
 title: "Understanding API Authentication Methods: A Comprehensive Guide"
 date: 2025-05-03 14:15:00 +0000
 categories: Technical
-tags: [security, authentication, api-keys, oauth]
+tags: [security, authentication, api-keys, oauth, api]
 author: BestAPI Team
 ---
 

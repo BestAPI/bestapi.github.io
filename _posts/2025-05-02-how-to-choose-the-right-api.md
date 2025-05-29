@@ -3,7 +3,7 @@ layout: post
 title: "How to Choose the Right API for Your Project"
 date: 2025-05-02 10:30:00 +0000
 categories: Guides
-tags: [api-selection, best-practices, decision-making]
+tags: [api-selection, best-practices, decision-making, api]
 author: BestAPI Team
 ---
 
