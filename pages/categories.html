@@ -36,8 +36,8 @@ permalink: /categories/
         <div class="taxonomy-item">
           <h2 class="taxonomy-name" id="{{ api_category | slugify }}">
             <a href="#{{ api_category | slugify }}">{{ api_category }}</a>
+            <span class="taxonomy-count">{{ apis.size }}</span>
           </h2>
-          <span class="taxonomy-count">{{ apis.size }}</span>
           <ul class="taxonomy-posts">
             {% for api in apis %}
               <li class="taxonomy-post">
@@ -72,7 +72,6 @@ permalink: /categories/
   
   .taxonomy-item {
     border-bottom: 1px solid var(--color-border);
-    padding-bottom: var(--space-4);
   }
   
   .taxonomy-item:last-child {
