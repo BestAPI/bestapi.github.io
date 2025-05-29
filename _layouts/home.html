@@ -66,12 +66,31 @@ layout: default
 
   <div class="post-section">
     <h2 class="section-title">Latest Updates</h2>
-    
-    <div style="background: #f0f0f0; padding: 10px; margin: 10px 0;">
-      <strong>Debug Info:</strong><br>
-      Total posts: {{ site.posts.size }}<br>
-      Posts array: {{ site.posts | map: 'title' | join: ', ' }}
-    </div>
+    {% if site.posts.size > 0 %}
+      <div class="post-grid">
+        {% for post in site.posts limit:9 %}
+          <div class="post-card">
+            <div class="post-card-header">
+              <h3 class="post-card-title"><a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h3>
+              <time class="post-card-date" datetime="{{ post.date | date_to_xmlschema }}">
+                {{ post.date | date: site.date_format | default: "%b %-d, %Y" }}
+              </time>
+            </div>
+            <div class="post-card-content">
+              <p>{{ post.excerpt | strip_html | truncate: 120 }}</p>
+            </div>
+            <div class="post-card-footer">
+              {% if post.categories.size > 0 %}
+                <span class="post-card-category">{{ post.categories[0] }}</span>
+              {% endif %}
+              <a href="{{ post.url | relative_url }}" class="post-card-link">Read More</a>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p>No posts found. Make sure your posts are in the `_posts` directory with the correct naming format.</p>
+    {% endif %}
   
     {% if site.paginate %}
       <div class="pagination">
