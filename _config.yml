@@ -17,7 +17,7 @@ paginate: 10
 paginate_path: "/page/:num/"
 
 # SEO settings
-logo: /assets/images/logo.png
+logo: /assets/images/code.svg
 lang: en_US
 locale: en_US
 author: BestAPI Team
