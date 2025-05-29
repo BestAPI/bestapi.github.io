@@ -1,0 +1,127 @@
+---
+layout: page
+title: Tags
+permalink: /tags/
+---
+
+<div class="taxonomy-page">
+  <p class="taxonomy-description">Browse all APIs and posts by tag.</p>
+  
+  <div class="tags-cloud">
+    {% assign tags = site.tags | sort %}
+    {% for tag in tags %}
+      {% assign tag_name = tag | first %}
+      {% assign posts = tag | last %}
+      <a href="#{{ tag_name | slugify }}" class="tag-cloud-item" style="font-size: {{ posts.size | times: 0.5 | plus: 1 }}rem;">
+        {{ tag_name }}
+        <span class="tag-count">{{ posts.size }}</span>
+      </a>
+    {% endfor %}
+    
+    {% assign api_tags = "" | split: "" %}
+    {% for api in site.apis %}
+      {% for tag in api.tags %}
+        {% assign api_tags = api_tags | push: tag %}
+      {% endfor %}
+    {% endfor %}
+    {% assign api_tags = api_tags | uniq | sort %}
+    
+    {% for tag in api_tags %}
+      {% if tag %}
+        {% assign tagged_apis = site.apis | where_exp: "api", "api.tags contains tag" %}
+        <a href="#{{ tag | slugify }}" class="tag-cloud-item" style="font-size: {{ tagged_apis.size | times: 0.5 | plus: 1 }}rem;">
+          {{ tag }}
+          <span class="tag-count">{{ tagged_apis.size }}</span>
+        </a>
+      {% endif %}
+    {% endfor %}
+  </div>
+  
+  <div class="taxonomy-list">
+    {% for tag in tags %}
+      {% assign tag_name = tag | first %}
+      {% assign posts = tag | last %}
+      <div class="taxonomy-item">
+        <h2 class="taxonomy-name" id="{{ tag_name | slugify }}">
+          <a href="#{{ tag_name | slugify }}">#{{ tag_name }}</a>
+        </h2>
+        <span class="taxonomy-count">{{ posts.size }}</span>
+        <ul class="taxonomy-posts">
+          {% for post in posts %}
+            <li class="taxonomy-post">
+              <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+              <span class="post-date">{{ post.date | date: "%b %-d, %Y" }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endfor %}
+    
+    <!-- Display APIs by tag -->
+    {% for tag in api_tags %}
+      {% if tag %}
+        {% assign tagged_apis = site.apis | where_exp: "api", "api.tags contains tag" %}
+        <div class="taxonomy-item">
+          <h2 class="taxonomy-name" id="{{ tag | slugify }}">
+            <a href="#{{ tag | slugify }}">#{{ tag }}</a>
+          </h2>
+          <span class="taxonomy-count">{{ tagged_apis.size }}</span>
+          <ul class="taxonomy-posts">
+            {% for api in tagged_apis %}
+              <li class="taxonomy-post">
+                <a href="{{ api.url | relative_url }}">{{ api.title }}</a>
+                <span class="api-label">API</span>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+  .tags-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-bottom: var(--space-5);
+    justify-content: center;
+  }
+  
+  .tag-cloud-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.5rem 1rem;
+    background-color: var(--color-bg-alt);
+    color: var(--color-text);
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+  }
+  
+  .tag-cloud-item:hover {
+    background-color: var(--color-primary);
+    color: white;
+  }
+  
+  .tag-cloud-item:hover .tag-count {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+  }
+  
+  .tag-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    background-color: var(--color-bg);
+    color: var(--color-text-light);
+    border-radius: 99px;
+    padding: 0 0.5rem;
+    min-width: 1.5rem;
+    height: 1.5rem;
+    transition: all var(--transition-fast);
+  }
+</style>

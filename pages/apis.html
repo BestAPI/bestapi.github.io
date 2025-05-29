@@ -1,0 +1,163 @@
+---
+layout: page
+title: All APIs
+permalink: /apis/
+---
+
+<div class="apis-page">
+  <p class="apis-description">Browse our complete collection of APIs.</p>
+  
+  <div class="apis-filters">
+    <div class="filter-section">
+      <h3 class="filter-title">Filter by Category</h3>
+      <div class="filter-options" id="category-filters">
+        <button class="filter-option active" data-category="all">All</button>
+        {% assign api_categories = site.apis | map: "category" | uniq | sort %}
+        {% for category in api_categories %}
+          {% if category %}
+            <button class="filter-option" data-category="{{ category | slugify }}">{{ category }}</button>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  
+  <div class="apis-grid" id="apis-grid">
+    {% for api in site.apis %}
+      <div class="api-card" data-category="{{ api.category | slugify }}">
+        <div class="api-card-header">
+          <h3 class="api-card-title"><a href="{{ api.url | relative_url }}">{{ api.title }}</a></h3>
+          {% if api.category %}
+            <span class="api-card-category">{{ api.category }}</span>
+          {% endif %}
+        </div>
+        <div class="api-card-content">
+          <p>{{ api.description | default: api.excerpt | strip_html | truncate: 120 }}</p>
+        </div>
+        <div class="api-card-footer">
+          {% if api.tags.size > 0 %}
+            <div class="api-card-tags">
+              {% for tag in api.tags limit:3 %}
+                <span class="api-tag">{{ tag }}</span>
+              {% endfor %}
+            </div>
+          {% endif %}
+          <a href="{{ api.url | relative_url }}" class="api-card-link">View Details</a>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+  .apis-page {
+    max-width: var(--container-width);
+    margin: 0 auto;
+  }
+  
+  .apis-description {
+    margin-bottom: var(--space-5);
+    text-align: center;
+    color: var(--color-text-light);
+  }
+  
+  .apis-filters {
+    margin-bottom: var(--space-5);
+  }
+  
+  .filter-section {
+    margin-bottom: var(--space-3);
+  }
+  
+  .filter-title {
+    margin-bottom: var(--space-2);
+    font-size: var(--font-size-lg);
+  }
+  
+  .filter-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+  
+  .filter-option {
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    background-color: var(--color-bg-alt);
+    border: none;
+    cursor: pointer;
+    font-size: var(--font-size-sm);
+    transition: all var(--transition-fast);
+    color: var(--color-text);
+  }
+  
+  .filter-option:hover {
+    background-color: var(--color-primary-light);
+    color: white;
+  }
+  
+  .filter-option.active {
+    background-color: var(--color-primary);
+    color: white;
+  }
+  
+  .apis-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--space-4);
+  }
+  
+  .no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: var(--space-5);
+    color: var(--color-text-light);
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const categoryFilters = document.querySelectorAll('#category-filters .filter-option');
+    const apiCards = document.querySelectorAll('.api-card');
+    
+    // Filter APIs by category
+    categoryFilters.forEach(filter => {
+      filter.addEventListener('click', () => {
+        // Update active class
+        categoryFilters.forEach(f => f.classList.remove('active'));
+        filter.classList.add('active');
+        
+        const category = filter.dataset.category;
+        
+        // Show/hide APIs based on category
+        apiCards.forEach(card => {
+          if (category === 'all' || card.dataset.category === category) {
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        
+        // Check if no results are showing
+        const visibleCards = document.querySelectorAll('.api-card[style=""]').length;
+        const apisGrid = document.getElementById('apis-grid');
+        
+        if (visibleCards === 0) {
+          // No results found
+          if (!document.querySelector('.no-results')) {
+            const noResults = document.createElement('div');
+            noResults.className = 'no-results';
+            noResults.textContent = 'No APIs found in this category.';
+            apisGrid.appendChild(noResults);
+          }
+        } else {
+          // Remove no results message if it exists
+          const noResults = document.querySelector('.no-results');
+          if (noResults) {
+            noResults.remove();
+          }
+        }
+      });
+    });
+  });
+</script>

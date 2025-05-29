@@ -1,0 +1,164 @@
+---
+layout: page
+title: Archive
+permalink: /archive/
+---
+
+<div class="archive-page">
+  <p class="archive-description">Browse all posts by year.</p>
+  
+  <div class="archive-timeline">
+    {% assign posts_by_year = site.posts | group_by_exp:"post", "post.date | date: '%Y'" %}
+    {% for year in posts_by_year %}
+      <div class="timeline-year">
+        <h2 class="year-heading" id="{{ year.name }}">{{ year.name }}</h2>
+        <div class="timeline-posts">
+          {% assign posts_by_month = year.items | group_by_exp:"post", "post.date | date: '%B'" %}
+          {% for month in posts_by_month %}
+            <div class="timeline-month">
+              <h3 class="month-heading">{{ month.name }}</h3>
+              <ul class="month-posts">
+                {% for post in month.items %}
+                  <li class="archive-post">
+                    <span class="post-date">{{ post.date | date: "%-d" }}</span>
+                    <a href="{{ post.url | relative_url }}" class="post-link">{{ post.title }}</a>
+                    {% if post.categories.size > 0 %}
+                      <span class="post-category">{{ post.categories | first }}</span>
+                    {% endif %}
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+  .archive-page {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .archive-description {
+    margin-bottom: var(--space-5);
+    text-align: center;
+    color: var(--color-text-light);
+  }
+  
+  .archive-timeline {
+    position: relative;
+  }
+  
+  .archive-timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 100px;
+    width: 2px;
+    background-color: var(--color-border);
+  }
+  
+  .timeline-year {
+    margin-bottom: var(--space-6);
+    position: relative;
+  }
+  
+  .year-heading {
+    position: sticky;
+    top: var(--header-height);
+    background-color: var(--color-bg);
+    padding: var(--space-2) var(--space-3);
+    margin-bottom: var(--space-4);
+    z-index: 10;
+    display: inline-block;
+    color: var(--color-primary);
+    font-weight: 700;
+    margin-left: 70px;
+  }
+  
+  .year-heading::before {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background-color: var(--color-primary);
+    border-radius: 50%;
+    left: -28px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  .timeline-month {
+    margin-bottom: var(--space-4);
+    margin-left: 140px;
+  }
+  
+  .month-heading {
+    margin-bottom: var(--space-2);
+    font-size: var(--font-size-lg);
+    color: var(--color-text);
+  }
+  
+  .month-posts {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .archive-post {
+    margin-bottom: var(--space-2);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+  
+  .post-date {
+    min-width: 30px;
+    display: inline-flex;
+    justify-content: center;
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    color: var(--color-text-light);
+  }
+  
+  .post-link {
+    font-weight: 500;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+  
+  .post-link:hover {
+    color: var(--color-primary);
+  }
+  
+  .post-category {
+    font-size: var(--font-size-xs);
+    padding: 0.1rem 0.5rem;
+    background-color: var(--color-primary-light);
+    color: white;
+    border-radius: 99px;
+  }
+  
+  @media (max-width: 768px) {
+    .archive-timeline::before {
+      left: 20px;
+    }
+    
+    .year-heading {
+      margin-left: 0;
+    }
+    
+    .year-heading::before {
+      left: -38px;
+    }
+    
+    .timeline-month {
+      margin-left: 40px;
+    }
+  }
+</style>

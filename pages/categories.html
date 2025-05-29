@@ -1,0 +1,141 @@
+---
+layout: page
+title: Categories
+permalink: /categories/
+---
+
+<div class="taxonomy-page">
+  <p class="taxonomy-description">Browse all APIs and posts by category.</p>
+  
+  <div class="taxonomy-list">
+    {% assign sorted_categories = site.categories | sort %}
+    {% for category in sorted_categories %}
+      {% assign category_name = category | first %}
+      {% assign posts = category | last %}
+      <div class="taxonomy-item">
+        <h2 class="taxonomy-name" id="{{ category_name | slugify }}">
+          <a href="#{{ category_name | slugify }}">{{ category_name }}</a>
+        </h2>
+        <span class="taxonomy-count">{{ posts.size }}</span>
+        <ul class="taxonomy-posts">
+          {% for post in posts %}
+            <li class="taxonomy-post">
+              <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+              <span class="post-date">{{ post.date | date: "%b %-d, %Y" }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endfor %}
+    
+    <!-- Display APIs by category -->
+    {% assign api_categories = site.apis | map: "category" | uniq | sort %}
+    {% for api_category in api_categories %}
+      {% if api_category %}
+        {% assign apis = site.apis | where: "category", api_category %}
+        <div class="taxonomy-item">
+          <h2 class="taxonomy-name" id="{{ api_category | slugify }}">
+            <a href="#{{ api_category | slugify }}">{{ api_category }}</a>
+          </h2>
+          <span class="taxonomy-count">{{ apis.size }}</span>
+          <ul class="taxonomy-posts">
+            {% for api in apis %}
+              <li class="taxonomy-post">
+                <a href="{{ api.url | relative_url }}">{{ api.title }}</a>
+                <span class="api-label">API</span>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+  .taxonomy-page {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .taxonomy-description {
+    margin-bottom: var(--space-5);
+    text-align: center;
+    color: var(--color-text-light);
+  }
+  
+  .taxonomy-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+  
+  .taxonomy-item {
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: var(--space-4);
+  }
+  
+  .taxonomy-item:last-child {
+    border-bottom: none;
+  }
+  
+  .taxonomy-name {
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--space-3);
+    position: relative;
+  }
+  
+  .taxonomy-name a {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+  
+  .taxonomy-name a:hover {
+    color: var(--color-primary);
+  }
+  
+  .taxonomy-count {
+    background-color: var(--color-bg-alt);
+    color: var(--color-text-light);
+    font-size: var(--font-size-sm);
+    padding: 0.2rem 0.6rem;
+    border-radius: 99px;
+    margin-left: var(--space-2);
+  }
+  
+  .taxonomy-posts {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .taxonomy-post {
+    margin-bottom: var(--space-2);
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+  
+  .taxonomy-post a {
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+  
+  .taxonomy-post a:hover {
+    text-decoration: underline;
+  }
+  
+  .post-date {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+  }
+  
+  .api-label {
+    background-color: var(--color-secondary);
+    color: white;
+    font-size: var(--font-size-xs);
+    padding: 0.1rem 0.5rem;
+    border-radius: 99px;
+  }
+</style>

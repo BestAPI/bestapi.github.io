@@ -1,0 +1,91 @@
+---
+permalink: /404.html
+layout: default
+---
+
+<div class="not-found">
+  <h1>404</h1>
+  <p>The page you're looking for cannot be found.</p>
+  
+  <div class="not-found-actions">
+    <a href="{{ '/' | relative_url }}" class="btn btn-primary">Go to Homepage</a>
+    <a href="{{ '/apis/' | relative_url }}" class="btn btn-outline">Browse APIs</a>
+  </div>
+  
+  <div class="search-section">
+    <h2>Looking for something specific?</h2>
+    <form action="{{ '/search.html' | relative_url }}" method="get" class="not-found-search">
+      <input type="text" name="q" placeholder="Search for APIs, categories, or tags..." aria-label="Search">
+      <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+  </div>
+</div>
+
+<style>
+  .not-found {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: var(--space-6) 0;
+    text-align: center;
+  }
+  
+  .not-found h1 {
+    font-size: 6rem;
+    margin-bottom: var(--space-3);
+    color: var(--color-primary);
+  }
+  
+  .not-found p {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--space-4);
+    color: var(--color-text-light);
+  }
+  
+  .not-found-actions {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-6);
+  }
+  
+  .search-section {
+    margin-top: var(--space-5);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--color-border);
+  }
+  
+  .search-section h2 {
+    margin-bottom: var(--space-3);
+    font-size: var(--font-size-xl);
+  }
+  
+  .not-found-search {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .not-found-search input {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    font-size: var(--font-size-md);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+  }
+  
+  .not-found-search input:focus {
+    outline: none;
+    border-color: var(--color-primary-light);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+  }
+  
+  @media (max-width: 768px) {
+    .not-found-actions {
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+  }
+</style>

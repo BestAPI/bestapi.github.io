@@ -1,0 +1,66 @@
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-column footer-branding">
+        <a href="{{ '/' | relative_url }}" class="footer-logo">
+          <img src="{{ '/assets/images/logo.png' | relative_url }}" alt="{{ site.title }}" width="48" height="48">
+          <span>{{ site.title | split: ' - ' | first }}</span>
+        </a>
+        <p class="footer-description">{{ site.description }}</p>
+        <div class="footer-social">
+          <a href="https://github.com/BestAPI" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          </a>
+          <a href="https://twitter.com/bestapi" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
+          </a>
+          <a href="/feed.xml" target="_blank" rel="noopener noreferrer" aria-label="RSS Feed">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
+          </a>
+        </div>
+      </div>
+      
+      <div class="footer-column footer-navigation">
+        <h3>Navigation</h3>
+        <ul>
+          <li><a href="{{ '/' | relative_url }}">Home</a></li>
+          <li><a href="{{ '/apis/' | relative_url }}">APIs</a></li>
+          <li><a href="{{ '/categories/' | relative_url }}">Categories</a></li>
+          <li><a href="{{ '/tags/' | relative_url }}">Tags</a></li>
+          <li><a href="{{ '/archive/' | relative_url }}">Archive</a></li>
+          <li><a href="{{ '/about/' | relative_url }}">About</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column footer-resources">
+        <h3>Resources</h3>
+        <ul>
+          <li><a href="{{ '/contribute/' | relative_url }}">How to Contribute</a></li>
+          <li><a href="{{ '/guidelines/' | relative_url }}">API Submission Guidelines</a></li>
+          <li><a href="https://github.com/BestAPI/bestapi.github.io" target="_blank" rel="noopener noreferrer">GitHub Repository</a></li>
+          <li><a href="{{ '/sitemap.xml' | relative_url }}">Sitemap</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column footer-categories">
+        <h3>Popular Categories</h3>
+        <ul>
+          {% assign categories = site.categories | sort %}
+          {% for category in categories limit:6 %}
+            <li><a href="{{ '/categories/' | append: category | first | slugify | relative_url }}">{{ category | first }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <div class="copyright">
+        &copy; {{ 'now' | date: "%Y" }} {{ site.title }}. All rights reserved.
+      </div>
+      <div class="footer-links">
+        <a href="{{ '/privacy/' | relative_url }}">Privacy Policy</a>
+        <a href="{{ '/terms/' | relative_url }}">Terms of Use</a>
+      </div>
+    </div>
+  </div>
+</footer>

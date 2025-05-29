@@ -1,0 +1,89 @@
+---
+layout: default
+---
+<article class="api-page">
+  <header class="api-header">
+    <h1 class="api-title">{{ page.title | escape }}</h1>
+    
+    <div class="api-meta">
+      {% if page.version %}
+        <div class="api-version">Version: {{ page.version }}</div>
+      {% endif %}
+      
+      {% if page.category %}
+        <div class="api-category">
+          <span>Category:</span>
+          <a href="{{ site.baseurl }}/categories/{{ page.category | slugify }}">{{ page.category }}</a>
+        </div>
+      {% endif %}
+      
+      {% if page.tags.size > 0 %}
+      <div class="api-tags">
+        <span>Tags:</span>
+        {% for tag in page.tags %}
+          <a href="{{ site.baseurl }}/tags/{{ tag | slugify }}" class="api-tag">{{ tag }}</a>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+
+    {% if page.api_url %}
+    <div class="api-url">
+      <a href="{{ page.api_url }}" target="_blank" rel="noopener noreferrer">
+        {{ page.api_url }}
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+      </a>
+    </div>
+    {% endif %}
+  </header>
+
+  <div class="api-content">
+    {{ content }}
+  </div>
+
+  {% if page.endpoints.size > 0 %}
+  <section class="api-endpoints">
+    <h2>Endpoints</h2>
+    <div class="endpoints-list">
+      {% for endpoint in page.endpoints %}
+        <div class="endpoint-item">
+          <div class="endpoint-method">{{ endpoint.method }}</div>
+          <div class="endpoint-path">{{ endpoint.path }}</div>
+          <div class="endpoint-description">{{ endpoint.description }}</div>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  {% if site.apis.size > 3 %}
+  <div class="related-apis">
+    <h3>Similar APIs</h3>
+    <div class="related-grid">
+      {% assign related_apis = site.apis | where_exp: "api", "api.tags contains page.tags[0]" | where_exp: "api", "api.url != page.url" | limit: 3 %}
+      {% for api in related_apis %}
+      <div class="related-api-card">
+        <a href="{{ api.url | relative_url }}" class="related-api-link">
+          <h4>{{ api.title }}</h4>
+          {% if api.description %}
+            <p>{{ api.description | truncate: 100 }}</p>
+          {% else %}
+            <p>{{ api.content | strip_html | truncate: 100 }}</p>
+          {% endif %}
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="api-contribute">
+    <h3>Contribute to this API</h3>
+    <p>
+      Know something more about this API? Help improve this page by 
+      <a href="https://github.com/BestAPI/bestapi.github.io/edit/main/{{ page.path }}" target="_blank" rel="noopener noreferrer">
+        editing it on GitHub
+      </a>.
+    </p>
+  </div>
+</article>

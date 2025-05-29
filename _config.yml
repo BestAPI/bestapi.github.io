@@ -1,0 +1,76 @@
+# Site settings
+title: BestAPI - The Best APIs Repository
+email: contact@example.com
+description: >-
+  Your comprehensive resource for finding and contributing to the best APIs available worldwide.
+  Discover, explore, and share the most useful APIs for your projects.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://bestapi.github.io" # the base hostname & protocol for your site
+twitter_username: bestapi
+github_username:  BestAPI
+repository: BestAPI/bestapi.github.io
+
+# Build settings
+markdown: kramdown
+permalink: /:year/:month/:day/:title/
+paginate: 10
+paginate_path: "/page/:num/"
+
+# SEO settings
+logo: /assets/images/logo.png
+lang: en_US
+locale: en_US
+author: BestAPI Team
+
+# Theme settings
+theme_mode: auto # auto, dark, light
+animate: true
+
+# Collections
+collections:
+  apis:
+    output: true
+    permalink: /api/:name/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+      author: "BestAPI Team"
+      image: /assets/images/default-post.jpg
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+  - scope:
+      path: ""
+      type: "apis"
+    values:
+      layout: "api"
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "page"
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-paginate
+  - jekyll-sitemap
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - .git
+  - .github
+  - README.md
+  - CNAME
+  - bestapi.gemspec
