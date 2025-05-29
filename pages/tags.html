@@ -44,8 +44,8 @@ permalink: /tags/
       <div class="taxonomy-item">
         <h2 class="taxonomy-name" id="{{ tag_name | slugify }}">
           <a href="#{{ tag_name | slugify }}">#{{ tag_name }}</a>
+          <span class="taxonomy-count">{{ posts.size }}</span>
         </h2>
-        <span class="taxonomy-count">{{ posts.size }}</span>
         <ul class="taxonomy-posts">
           {% for post in posts %}
             <li class="taxonomy-post">
@@ -64,8 +64,8 @@ permalink: /tags/
         <div class="taxonomy-item">
           <h2 class="taxonomy-name" id="{{ tag | slugify }}">
             <a href="#{{ tag | slugify }}">#{{ tag }}</a>
+            <span class="taxonomy-count">{{ tagged_apis.size }}</span>
           </h2>
-          <span class="taxonomy-count">{{ tagged_apis.size }}</span>
           <ul class="taxonomy-posts">
             {% for api in tagged_apis %}
               <li class="taxonomy-post">
