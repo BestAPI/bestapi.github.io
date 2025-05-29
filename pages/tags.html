@@ -12,12 +12,12 @@ permalink: /tags/
     {% for tag in tags %}
       {% assign tag_name = tag | first %}
       {% assign posts = tag | last %}
-      <a href="#{{ tag_name | slugify }}" class="tag-cloud-item" style="font-size: {{ posts.size | times: 0.5 | plus: 1 }}rem;">
+      <a href="#{{ tag_name | slugify }}" class="tag-cloud-item" style="font-size: {{ posts.size | times: 0.3 | plus: 0.8 }}rem">
         {{ tag_name }}
         <span class="tag-count">{{ posts.size }}</span>
       </a>
     {% endfor %}
-    
+         
     {% assign api_tags = "" | split: "" %}
     {% for api in site.apis %}
       {% for tag in api.tags %}
@@ -25,11 +25,11 @@ permalink: /tags/
       {% endfor %}
     {% endfor %}
     {% assign api_tags = api_tags | uniq | sort %}
-    
+         
     {% for tag in api_tags %}
       {% if tag %}
         {% assign tagged_apis = site.apis | where_exp: "api", "api.tags contains tag" %}
-        <a href="#{{ tag | slugify }}" class="tag-cloud-item" style="font-size: {{ tagged_apis.size | times: 0.5 | plus: 1 }}rem;">
+        <a href="#{{ tag | slugify }}" class="tag-cloud-item" style="font-size: {{ tagged_apis.size | times: 0.3 | plus: 0.8 }}rem">
           {{ tag }}
           <span class="tag-count">{{ tagged_apis.size }}</span>
         </a>
