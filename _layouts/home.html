@@ -90,23 +90,7 @@ layout: default
     </div>
   
     {% if site.paginate %}
-      <div class="pagination">
-        {% if paginator.previous_page %}
-          <a href="{{ paginator.previous_page_path | relative_url }}" class="pagination-item pagination-prev">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-            Previous
-          </a>
-        {% endif %}
-        
-        <span class="pagination-info">Page {{ paginator.page }} of {{ paginator.total_pages }}</span>
-        
-        {% if paginator.next_page %}
-          <a href="{{ paginator.next_page_path | relative_url }}" class="pagination-item pagination-next">
-            Next
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-          </a>
-        {% endif %}
-      </div>
+      {% include pagination.html %}
     {% endif %}
   </div>
 
