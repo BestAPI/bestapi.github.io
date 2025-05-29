@@ -1,26 +1,22 @@
-// Theme toggle functionality
+// Theme toggle and mobile menu functionality
 document.addEventListener('DOMContentLoaded', () => {
+  // Theme toggle functionality
   const themeToggle = document.getElementById('theme-toggle');
 
-  // Function to set theme
   const setTheme = (theme) => {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
   };
 
-  // Check for saved theme preference or use the system preference
   const savedTheme = localStorage.getItem('theme') || 'auto';
 
-  // Apply the appropriate theme
   if (savedTheme === 'auto') {
-    // Check system preference
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
       setTheme('dark');
     } else {
       setTheme('light');
     }
 
-    // Add listener for system theme changes
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
       if (localStorage.getItem('theme') === 'auto') {
         setTheme(e.matches ? 'dark' : 'light');
@@ -30,47 +26,55 @@ document.addEventListener('DOMContentLoaded', () => {
     setTheme(savedTheme);
   }
 
-  // Toggle theme on button click
   themeToggle.addEventListener('click', () => {
     const currentTheme = document.documentElement.getAttribute('data-theme');
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
     setTheme(newTheme);
   });
 
-  // Mobile menu toggle
+  // Mobile menu toggle with improved reliability
   const menuToggle = document.querySelector('.menu-toggle');
   const navMenu = document.querySelector('.nav-menu');
+  const html = document.documentElement;
 
   if (menuToggle && navMenu) {
-    menuToggle.addEventListener('click', () => {
-      navMenu.classList.toggle('active');
-      menuToggle.classList.toggle('active');
+    const closeMenu = () => {
+      navMenu.classList.remove('active');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      html.style.overflow = ''; // Reset overflow
+    };
 
-      // Toggle aria-expanded attribute
-      const isExpanded = navMenu.classList.contains('active');
-      menuToggle.setAttribute('aria-expanded', isExpanded);
+    const openMenu = () => {
+      navMenu.classList.add('active');
+      menuToggle.setAttribute('aria-expanded', 'true');
+      html.style.overflow = 'hidden'; // Prevent scrolling when menu is open
+    };
 
-      // Toggle body scroll
-      document.body.style.overflow = isExpanded ? 'hidden' : '';
+    menuToggle.addEventListener('click', (e) => {
+      e.stopPropagation(); // Prevent immediate document click handler
+      if (navMenu.classList.contains('active')) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
     });
 
-    // Close menu when clicking on a link
+    // Close when clicking on a menu item
     navMenu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        navMenu.classList.remove('active');
-        menuToggle.classList.remove('active');
-        menuToggle.setAttribute('aria-expanded', false);
-        document.body.style.overflow = '';
-      });
+      link.addEventListener('click', closeMenu);
     });
 
-    // Close menu when clicking outside
-    document.addEventListener('click', (event) => {
-      if (!event.target.closest('.site-nav') && navMenu.classList.contains('active')) {
-        navMenu.classList.remove('active');
-        menuToggle.classList.remove('active');
-        menuToggle.setAttribute('aria-expanded', false);
-        document.body.style.overflow = '';
+    // Close when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.site-nav') && navMenu.classList.contains('active')) {
+        closeMenu();
+      }
+    });
+
+    // Close on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+        closeMenu();
       }
     });
   }
