@@ -4,8 +4,6 @@ layout: page
 permalink: /about/
 ---
 
-# About BestAPI
-
 BestAPI is a community-driven repository of the best APIs available worldwide. Our goal is to help developers discover, evaluate, and integrate the most useful APIs for their projects.
 
 ## Our Mission
