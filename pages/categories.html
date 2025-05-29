@@ -15,8 +15,8 @@ permalink: /categories/
       <div class="taxonomy-item">
         <h2 class="taxonomy-name" id="{{ category_name | slugify }}">
           <a href="#{{ category_name | slugify }}">{{ category_name }}</a>
+          <span class="taxonomy-count">{{ posts.size }}</span>
         </h2>
-        <span class="taxonomy-count">{{ posts.size }}</span>
         <ul class="taxonomy-posts">
           {% for post in posts %}
             <li class="taxonomy-post">
