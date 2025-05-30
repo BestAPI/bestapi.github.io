@@ -1,9 +1,8 @@
 ---
 layout: none
 ---
-# www.robotstxt.org/
-
-Sitemap: {{ site.url }}/sitemap.xml
 
 User-agent: *
 Disallow: /search?*
+
+Sitemap: {{ site.url }}/sitemap.xml
