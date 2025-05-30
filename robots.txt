@@ -3,6 +3,7 @@ layout: none
 ---
 
 User-agent: *
+Allow: /
 Disallow: /search?*
 
 Sitemap: {{ site.url }}/sitemap.xml
