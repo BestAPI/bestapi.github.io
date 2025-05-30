@@ -22,6 +22,9 @@ lang: en_US
 locale: en_US
 author: BestAPI Team
 
+# Google Site Verification
+googleSiteVerification: KZQ0kf1Mn-yMlGIJ_YEkEflJEkSgR4wNw5uY1TuA1qQ
+
 # Theme settings
 theme_mode: auto # auto, dark, light
 animate: true
